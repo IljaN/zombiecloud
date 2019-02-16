@@ -21,18 +21,19 @@ RUN make build/dist/owncloud-core.tar.bz2
 
 FROM php:7.2-fpm-alpine
 RUN apk upgrade && apk update && apk add \
-    php-gd \
-    php-json \
-    php-pgsql \
-    php-curl \
-    php-intl \
-    php-zip \
-    php-xml \
-    php-mbstring \
-    php-soap \
-    php-ldap \
-    php7-apcu \
-    tar
+    build-base \
+    autoconf \
+    g++ \
+    postgresql-dev \
+    libpng-dev \
+    curl-dev \
+    icu-dev \
+    libxml2-dev \
+    openldap-dev \
+        && docker-php-ext-install -j$(nproc) opcache pgsql gd intl zip soap ldap \
+        && pecl install redis \
+        && pecl install apcu \
+        && docker-php-ext-enable redis apcu
 
 WORKDIR /srv
 COPY --from=buildenv /tmp/core_src/build/dist/owncloud-core.tar.bz2 /srv
