@@ -34,6 +34,7 @@ RUN apk upgrade \
     && docker-php-ext-install -j$(nproc) \
         opcache \
         pgsql \
+        pdo_pgsql\
         gd \
         intl \
         zip \
@@ -44,6 +45,7 @@ RUN apk upgrade \
     && docker-php-ext-enable \
         opcache \
         pgsql \
+        pdo_pgsql \
         gd \
         intl \
         zip \
