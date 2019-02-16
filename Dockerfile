@@ -54,7 +54,7 @@ RUN apk upgrade \
 
 WORKDIR /srv
 COPY --from=buildenv /tmp/core_src/build/dist/owncloud-core.tar.bz2 /srv
-RUN tar xvjf ./owncloud-core.tar.bz2 -C /srv \
+RUN tar -xjf ./owncloud-core.tar.bz2 -C /srv \
     && rm ./owncloud-core.tar.bz2 \
     && addgroup -S nginx \
     && adduser -S nginx -G nginx \
