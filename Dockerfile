@@ -9,9 +9,7 @@ RUN apk upgrade && apk update && apk add \
     patch \
     nodejs && \
     npm install -g yarn && \
-    git clone --depth 1 https://github.com/owncloud/core.git . && \
-    pwd && \
-    ls
+    git clone --depth 1 https://github.com/owncloud/core.git .
 
 COPY patch/ .
 
