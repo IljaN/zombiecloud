@@ -1,0 +1,80 @@
+Index: lib/private/Setup/PostgreSQL.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/private/Setup/PostgreSQL.php	(revision 55c4b789b7ca538f4b25721908f3ddbaa7ed9009)
++++ lib/private/Setup/PostgreSQL.php	(date 1550304272000)
+@@ -29,6 +29,8 @@
+ class PostgreSQL extends AbstractDatabase {
+ 	public $dbprettyname = 'PostgreSQL';
+
++	const CS = "host=localhost port=26257 dbname=owncloud user=owncloud sslmode=disable";
++
+ 	public function setupDatabase($username) {
+ 		$e_host = \addslashes($this->dbHost);
+ 		$e_user = \addslashes($this->dbUser);
+@@ -36,18 +38,18 @@
+
+ 		// Fix database with port connection
+ 		if (\strpos($e_host, ':')) {
+-			list($e_host, $port) = \explode(':', $e_host, 2);
++			list($e_host, $port)=\explode(':', $e_host, 2);
+ 		} else {
+-			$port = false;
++			$port=false;
+ 		}
+
+ 		//check if the database user has admin rights
+-		$connection_string = "host='$e_host' dbname=postgres user='$e_user' port='$port' password='$e_password'";
++		$connection_string = self::CS;
+ 		$connection = @\pg_connect($connection_string);
+ 		if (!$connection) {
+ 			// Try if we can connect to the DB with the specified name
+ 			$e_dbname = \addslashes($this->dbName);
+-			$connection_string = "host='$e_host' dbname='$e_dbname' user='$e_user' port='$port' password='$e_password'";
++			$connection_string = self::CS;
+ 			$connection = @\pg_connect($connection_string);
+
+ 			if (!$connection) {
+@@ -59,7 +61,7 @@
+ 		//check for roles creation rights in postgresql
+ 		$query="SELECT 1 FROM pg_roles WHERE rolcreaterole=TRUE AND rolname='$e_user'";
+ 		$result = \pg_query($connection, $query);
+-		if ($result && \pg_num_rows($result) > 0) {
++		if ($result and \pg_num_rows($result) > 0) {
+ 			//use the admin login data for the new database user
+
+ 			//add prefix to the postgresql user name to prevent collisions
+@@ -93,12 +95,12 @@
+
+ 		// Fix database with port connection
+ 		if (\strpos($e_host, ':')) {
+-			list($e_host, $port) = \explode(':', $e_host, 2);
++			list($e_host, $port)=\explode(':', $e_host, 2);
+ 		} else {
+-			$port = false;
++			$port=false;
+ 		}
+
+-		$connection_string = "host='$e_host' dbname='$e_dbname' user='$e_user' port='$port' password='$e_password'";
++		$connection_string = self::CS;
+ 		$connection = @\pg_connect($connection_string);
+ 		if (!$connection) {
+ 			throw new \OC\DatabaseSetupException($this->trans->t('PostgreSQL username and/or password not valid'),
+Index: lib/private/Setup.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- lib/private/Setup.php	(revision 55c4b789b7ca538f4b25721908f3ddbaa7ed9009)
++++ lib/private/Setup.php	(date 1550297769000)
+@@ -325,7 +325,7 @@
+ 			$dbSetup->initialize($options);
+ 			$dbSetup->setupDatabase($username);
+ 			// apply necessary migrations
+-			$dbSetup->runMigrations();
++			#$dbSetup->runMigrations();
+ 		} catch (\OC\DatabaseSetupException $e) {
+ 			$error[] = [
+ 				'error' => $e->getMessage(),
