@@ -41,7 +41,16 @@ RUN apk upgrade \
         ldap \
     && pecl install redis \
     && pecl install apcu \
-    && docker-php-ext-enable redis apcu
+    && docker-php-ext-enable \
+        opcache \
+        pgsql \
+        gd \
+        intl \
+        zip \
+        soap \
+        ldap \
+        redis \
+        apcu
 
 WORKDIR /srv
 COPY --from=buildenv /tmp/core_src/build/dist/owncloud-core.tar.bz2 /srv
