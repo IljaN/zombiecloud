@@ -11,7 +11,10 @@ RUN apk upgrade \
         patch \
         nodejs \
     && npm install -g yarn \
-    && git clone --depth 1 https://github.com/owncloud/core.git .
+    && git clone --depth 1 https://github.com/owncloud/core.git . \
+    && wget https://marketplace.owncloud.com/api/v1/apps/files_primary_s3/1.0.3 -O ./apps/files_primary_s3.tar.gz \
+    && tar -xzf ./apps/files_primary_s3.tar.gz -C ./apps \
+    && rm ./apps/files_primary_s3.tar.gz
 
 COPY patch/ .
 

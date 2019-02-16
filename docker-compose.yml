@@ -2,6 +2,8 @@ version: '3'
 services:
   owncloud:
     build: .
+    links:
+      - objectstore
     volumes:
       - owncloud_app:/srv/owncloud
   nginx:
@@ -15,10 +17,23 @@ services:
       - owncloud_app:/srv/owncloud
     command: sh -c "chown -R nginx:nginx /srv/owncloud && nginx -g 'daemon off;'"
 
-
+  objectstore:
+    image: scality/s3server:latest
+    restart: unless-stopped
+    ports:
+      - "8000:8009"
+    volumes:
+      - s3data:/usr/src/app/localData
+      - s3metadata:/usr/src/app/localMetadata
+    environment:
+      - SCALITY_ACCESS_KEY_ID=newAccessKey
+      - SCALITY_SECRET_ACCESS_KEY=newSecretKey
+      - SSL="FALSE"
 
 volumes:
   owncloud_app:
+  s3data:
+  s3metadata:
 
 
 
