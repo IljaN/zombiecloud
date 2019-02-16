@@ -44,13 +44,7 @@ RUN apk upgrade \
     && pecl install apcu \
     && docker-php-ext-enable \
         opcache \
-        pgsql \
         pdo_pgsql \
-        gd \
-        intl \
-        zip \
-        soap \
-        ldap \
         redis \
         apcu
 
