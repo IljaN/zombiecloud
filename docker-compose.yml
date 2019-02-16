@@ -1,0 +1,28 @@
+version: '3'
+services:
+  owncloud:
+    build: .
+    volumes:
+      - owncloud_app:/srv/owncloud
+  nginx:
+    image: nginx:mainline-alpine
+    links:
+      - owncloud
+    ports:
+      - "7070:80"
+    volumes:
+      - ./owncloud.conf:/etc/nginx/conf.d/default.conf
+      - owncloud_app:/srv/owncloud
+    command: sh -c "chown -R nginx:nginx /srv/owncloud && nginx -g 'daemon off;'"
+
+
+
+volumes:
+  owncloud_app:
+
+
+
+
+
+
+
