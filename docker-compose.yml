@@ -1,21 +1,26 @@
 version: '3'
 services:
-  owncloud:
-    build: .
-    links:
-      - objectstore
-    volumes:
-      - owncloud_app:/srv/owncloud
-  nginx:
+  httpd:
     image: nginx:mainline-alpine
+    depends_on:
+      - app
     links:
-      - owncloud
+      - app
     ports:
       - "7070:80"
     volumes:
-      - ./owncloud.conf:/etc/nginx/conf.d/default.conf
-      - owncloud_app:/srv/owncloud
+      - ./httpd/owncloud.conf:/etc/nginx/conf.d/default.conf
+      - app:/srv/owncloud
     command: sh -c "chown -R nginx:nginx /srv/owncloud && nginx -g 'daemon off;'"
+
+  app:
+    build: .
+    depends_on:
+      - objectstore
+    links:
+      - objectstore
+    volumes:
+      - app:/srv/owncloud
 
   objectstore:
     image: scality/s3server:latest
@@ -29,9 +34,8 @@ services:
       - SCALITY_ACCESS_KEY_ID=newAccessKey
       - SCALITY_SECRET_ACCESS_KEY=newSecretKey
       - SSL="FALSE"
-
 volumes:
-  owncloud_app:
+  app:
   s3data:
   s3metadata:
 

@@ -16,10 +16,10 @@ RUN apk upgrade \
     && tar -xzf ./apps/files_primary_s3.tar.gz -C ./apps \
     && rm ./apps/files_primary_s3.tar.gz
 
-COPY patch/ .
+COPY app/constring.patch .
 
-RUN patch -p0 < constring.patch
-RUN make build/dist/owncloud-core.tar.bz2
+RUN patch -p0 < constring.patch \
+&&  make build/dist/owncloud-core.tar.bz2
 
 FROM php:7.2-fpm-alpine
 RUN apk upgrade \
