@@ -23,9 +23,7 @@ DROP DATABASE owncloud;
 CREATE DATABASE owncloud WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
 
 
-ALTER DATABASE owncloud OWNER TO postgres;
 
-\connect owncloud
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -72,9 +70,7 @@ ALTER TABLE public.oc_account_terms OWNER TO oc_admin;
 -- Name: oc_account_terms_id_seq; Type: SEQUENCE; Schema: public; Owner: oc_admin
 --
 
-CREATE SEQUENCE public.oc_account_terms_id_seq
-    START WITH 1
-    INCREMENT BY 1
+CREATE SEQUENCE public.oc_account_terms_id_seq START 1 INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -121,8 +117,8 @@ COMMENT ON COLUMN public.oc_accounts.state IS '0: initial, 1: enabled, 2: disabl
 --
 
 CREATE SEQUENCE public.oc_accounts_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -156,10 +152,7 @@ ALTER TABLE public.oc_addressbookchanges OWNER TO oc_admin;
 -- Name: oc_addressbookchanges_id_seq; Type: SEQUENCE; Schema: public; Owner: oc_admin
 --
 
-CREATE SEQUENCE public.oc_addressbookchanges_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+CREATE SEQUENCE public.oc_addressbookchanges_id_seq START 1 INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -195,9 +188,9 @@ ALTER TABLE public.oc_addressbooks OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_addressbooks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -249,9 +242,9 @@ ALTER TABLE public.oc_authtoken OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_authtoken_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -286,9 +279,9 @@ ALTER TABLE public.oc_calendarchanges OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_calendarchanges_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -330,9 +323,9 @@ ALTER TABLE public.oc_calendarobjects OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_calendarobjects_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -373,9 +366,9 @@ ALTER TABLE public.oc_calendars OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_calendars_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -417,9 +410,9 @@ ALTER TABLE public.oc_calendarsubscriptions OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_calendarsubscriptions_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -456,9 +449,9 @@ ALTER TABLE public.oc_cards OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_cards_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -494,9 +487,9 @@ ALTER TABLE public.oc_cards_properties OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_cards_properties_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -524,8 +517,8 @@ CREATE TABLE public.oc_comments (
     actor_id character varying(64) DEFAULT ''::character varying NOT NULL,
     message text,
     verb character varying(64) DEFAULT NULL::character varying,
-    creation_timestamp timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
-    latest_child_timestamp timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    creation_timestamp timestamp without time zone DEFAULT NULL::timestamp without time zone,
+    latest_child_timestamp timestamp without time zone DEFAULT NULL::timestamp without time zone,
     object_type character varying(64) DEFAULT ''::character varying NOT NULL,
     object_id character varying(64) DEFAULT ''::character varying NOT NULL
 );
@@ -538,9 +531,9 @@ ALTER TABLE public.oc_comments OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_comments_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -561,7 +554,7 @@ ALTER SEQUENCE public.oc_comments_id_seq OWNED BY public.oc_comments.id;
 
 CREATE TABLE public.oc_comments_read_markers (
     user_id character varying(64) DEFAULT ''::character varying NOT NULL,
-    marker_datetime timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    marker_datetime timestamp without time zone DEFAULT NULL::timestamp without time zone,
     object_type character varying(64) DEFAULT ''::character varying NOT NULL,
     object_id character varying(64) DEFAULT ''::character varying NOT NULL
 );
@@ -601,8 +594,8 @@ ALTER TABLE public.oc_dav_job_status OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_dav_job_status_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -636,8 +629,8 @@ ALTER TABLE public.oc_dav_properties OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_dav_properties_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -673,9 +666,9 @@ ALTER TABLE public.oc_dav_shares OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_dav_shares_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -709,8 +702,8 @@ ALTER TABLE public.oc_external_applicable OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_external_applicable_applicable_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -744,8 +737,8 @@ ALTER TABLE public.oc_external_config OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_external_config_config_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -781,8 +774,8 @@ ALTER TABLE public.oc_external_mounts OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_external_mounts_mount_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -816,8 +809,8 @@ ALTER TABLE public.oc_external_options OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_external_options_option_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -870,9 +863,9 @@ ALTER TABLE public.oc_file_locks OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_file_locks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -918,8 +911,8 @@ ALTER TABLE public.oc_filecache OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_filecache_fileid_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -956,8 +949,8 @@ ALTER TABLE public.oc_files_trash OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_files_trash_auto_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1029,9 +1022,9 @@ ALTER TABLE public.oc_jobs OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_jobs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1075,9 +1068,9 @@ ALTER TABLE public.oc_mimetypes OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_mimetypes_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1112,9 +1105,9 @@ ALTER TABLE public.oc_mounts OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_mounts_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1217,8 +1210,8 @@ COMMENT ON COLUMN public.oc_persistent_locks.depth IS '0, 1 or infinite';
 --
 
 CREATE SEQUENCE public.oc_persistent_locks_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1267,9 +1260,9 @@ ALTER TABLE public.oc_privatedata OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_privatedata_keyid_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1303,9 +1296,9 @@ ALTER TABLE public.oc_properties OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_properties_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1342,9 +1335,9 @@ ALTER TABLE public.oc_schedulingobjects OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_schedulingobjects_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1378,7 +1371,7 @@ CREATE TABLE public.oc_share (
     permissions smallint DEFAULT 0 NOT NULL,
     stime bigint DEFAULT 0 NOT NULL,
     accepted smallint DEFAULT 0 NOT NULL,
-    expiration timestamp(0) without time zone DEFAULT NULL::timestamp without time zone,
+    expiration timestamp without time zone DEFAULT NULL::timestamp without time zone,
     token character varying(32) DEFAULT NULL::character varying,
     mail_send smallint DEFAULT 0 NOT NULL,
     share_name character varying(64) DEFAULT NULL::character varying
@@ -1469,8 +1462,8 @@ COMMENT ON COLUMN public.oc_share_external.mountpoint_hash IS 'md5 hash of the m
 --
 
 CREATE SEQUENCE public.oc_share_external_id_seq
-    START WITH 1
-    INCREMENT BY 1
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1490,9 +1483,9 @@ ALTER SEQUENCE public.oc_share_external_id_seq OWNED BY public.oc_share_external
 --
 
 CREATE SEQUENCE public.oc_share_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1526,9 +1519,9 @@ ALTER TABLE public.oc_storages OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_storages_numeric_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1575,9 +1568,9 @@ ALTER TABLE public.oc_systemtag_group OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_systemtag_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1669,9 +1662,9 @@ COMMENT ON COLUMN public.oc_trusted_servers.sync_token IS 'cardDav sync token';
 --
 
 CREATE SEQUENCE public.oc_trusted_servers_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1718,9 +1711,9 @@ ALTER TABLE public.oc_vcategory OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_vcategory_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -1768,9 +1761,9 @@ ALTER TABLE public.oc_workflows OWNER TO oc_admin;
 --
 
 CREATE SEQUENCE public.oc_workflows_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
+    
+    START 1
+    INCREMENT 1
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
@@ -3759,7 +3752,7 @@ ALTER TABLE ONLY public.oc_persistent_locks
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
 
-GRANT ALL ON SCHEMA public TO PUBLIC;
+--GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
