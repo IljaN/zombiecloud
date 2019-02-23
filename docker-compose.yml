@@ -4,8 +4,8 @@ services:
     image: nginx:mainline-alpine
     depends_on:
       - app
-    links:
-      - app
+    networks:
+      - frontend
     ports:
       - "7070:80"
     volumes:
@@ -19,6 +19,9 @@ services:
       - objectstore
     links:
       - objectstore
+    networks:
+      - roachnet
+      - frontend
     volumes:
       - app:/srv/owncloud
 
@@ -34,10 +37,48 @@ services:
       - SCALITY_ACCESS_KEY_ID=newAccessKey
       - SCALITY_SECRET_ACCESS_KEY=newSecretKey
       - SSL="FALSE"
+
+  db_node_1:
+    image: cockroachdb/cockroach
+    build: ./db
+    command: start --insecure --listen-addr=db_node_1
+    networks:
+      - roachnet
+    ports:
+      - 2657:2657
+      - 8080:8080
+
+  db_node_2:
+    image: cockroachdb/cockroach
+    command: start --insecure --join=db_node_1 --listen-addr=db_node_2
+    networks:
+      - roachnet
+
+  db_node_3:
+    image: cockroachdb/cockroach
+    command: start --insecure --join=db_node_1 --listen-addr=db_node_3
+    networks:
+      - roachnet
+
+  db_init:
+    image: cockroachdb/cockroach
+    networks:
+      - roachnet
+    volumes:
+      - ./db/db_init.sh:/cockroach/db_init.sh
+    depends_on:
+      - db_node_1
+      - db_node_2
+      - db_node_3
+    command: shell ./db_init.sh
+
 volumes:
   app:
   s3data:
   s3metadata:
+networks:
+  roachnet:
+  frontend:
 
 
 
