@@ -17,26 +17,29 @@ services:
     build: .
     depends_on:
       - objectstore
-    links:
-      - objectstore
     networks:
       - roachnet
       - frontend
+      - storage
     volumes:
       - app:/srv/owncloud
 
   objectstore:
     image: scality/s3server:latest
+    build: objectstore
     restart: unless-stopped
-    ports:
-      - "8000:8009"
+    hostname: objectstore
+    networks:
+      - storage
     volumes:
       - s3data:/usr/src/app/localData
       - s3metadata:/usr/src/app/localMetadata
+
     environment:
-      - SCALITY_ACCESS_KEY_ID=newAccessKey
-      - SCALITY_SECRET_ACCESS_KEY=newSecretKey
+      - SCALITY_ACCESS_KEY_ID=accessKey1
+      - SCALITY_SECRET_ACCESS_KEY=verySecretKey1
       - SSL="FALSE"
+      - LISTEN_ADDR=0.0.0.0
 
   db_node_1:
     image: cockroachdb/cockroach
@@ -78,6 +81,7 @@ volumes:
 networks:
   roachnet:
   frontend:
+  storage:
 
 
 
