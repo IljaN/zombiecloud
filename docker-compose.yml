@@ -17,12 +17,16 @@ services:
     build: .
     depends_on:
       - objectstore
+      - db_node_1
+      - db_node_2
+      - db_node_3
     networks:
       - roachnet
       - frontend
       - storage
     volumes:
       - app:/srv/owncloud
+    entrypoint: /bin/sh -c "/srv/owncloud/app_init.sh && docker-php-entrypoint"
 
   objectstore:
     image: scality/s3server:latest

@@ -17,6 +17,7 @@ RUN apk upgrade \
     && rm ./apps/files_primary_s3.tar.gz
 
 COPY app/constring.patch .
+COPY app/app_init.sh .
 
 RUN patch -p0 < constring.patch \
 &&  make build/dist/owncloud-core.tar.bz2
@@ -54,10 +55,13 @@ RUN apk upgrade \
 WORKDIR /srv
 COPY --from=buildenv /tmp/core_src/build/dist/owncloud-core.tar.bz2 /srv
 COPY ./app/config/* /tmp/config/
+COPY ./app/app_init.sh /tmp/app_init.sh
 RUN tar -xjf ./owncloud-core.tar.bz2 -C /srv \
     && rm ./owncloud-core.tar.bz2 \
     && mv ../tmp/config/* ./owncloud/config \
-    # !!!
+    && mv ../tmp/app_init.sh /srv/owncloud \
+    && chown -R root. ./owncloud/config \
+    && chown -R root. ./owncloud/config \
     && chmod -R 777 /srv/owncloud \
     && kill -USR2 1
 
