@@ -3,7 +3,7 @@ sleep 10
 chown -R root. owncloud/config
 owncloud/occ maintenance:install \
          --database "pgsql" \
-         --database-host "db_node_1:26257" \
+         --database-host "db_lb:26257" \
          --database-name "owncloud" \
          --database-user "owncloud" \
          --database-pass "" \

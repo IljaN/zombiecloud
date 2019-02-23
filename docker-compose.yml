@@ -20,8 +20,9 @@ services:
       - db_node_1
       - db_node_2
       - db_node_3
+      - db_lb
     networks:
-      - roachnet
+      - database
       - frontend
       - storage
     volumes:
@@ -44,6 +45,17 @@ services:
       - SCALITY_SECRET_ACCESS_KEY=verySecretKey1
       - SSL="FALSE"
       - LISTEN_ADDR=0.0.0.0
+  db_lb:
+    image: haproxy:1.9-alpine
+    depends_on:
+      - db_node_1
+      - db_node_2
+      - db_node_3
+    networks:
+      - roachnet
+      - database
+    volumes:
+      - ./db/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
 
   db_node_1:
     image: cockroachdb/cockroach
@@ -86,6 +98,7 @@ networks:
   roachnet:
   frontend:
   storage:
+  database:
 
 
 
