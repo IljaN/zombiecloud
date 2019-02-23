@@ -45,7 +45,6 @@ services:
     networks:
       - roachnet
     ports:
-      - 2657:2657
       - 8080:8080
 
   db_node_2:

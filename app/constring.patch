@@ -9,7 +9,7 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
  class PostgreSQL extends AbstractDatabase {
  	public $dbprettyname = 'PostgreSQL';
 
-+	const CS = "host=localhost port=26257 dbname=owncloud user=owncloud sslmode=disable";
++	const CS = "host=db_node_1 port=26257 dbname=owncloud user=owncloud sslmode=disable";
 +
  	public function setupDatabase($username) {
  		$e_host = \addslashes($this->dbHost);

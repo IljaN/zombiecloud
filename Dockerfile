@@ -53,10 +53,14 @@ RUN apk upgrade \
 
 WORKDIR /srv
 COPY --from=buildenv /tmp/core_src/build/dist/owncloud-core.tar.bz2 /srv
+COPY ./app/config/* /tmp/config/
 RUN tar -xjf ./owncloud-core.tar.bz2 -C /srv \
     && rm ./owncloud-core.tar.bz2 \
+    && mv ../tmp/config/* ./owncloud/config \
     # !!!
     && chmod -R 777 /srv/owncloud \
     && kill -USR2 1
+
+
 
 
