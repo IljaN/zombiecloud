@@ -1,4 +1,4 @@
-#Zombie Cloud
+# Zombie Cloud
 
 Compose file for experimental ownCloud on cockroach-db, haproxy, nginx-fpm and objectstore
 
